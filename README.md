@@ -99,3 +99,53 @@ Delete local:
 ```bash
 git branch -d feature/<short-name>
 ```
+
+# Lito – Development Guide
+
+## Project Structure (High level)
+```bash
+Lito/
+├── apps/
+│   ├── api/        # FastAPI backend
+│   └── web/        # React (Vite) frontend
+├── docker-compose.yml
+├── README.md
+```
+
+### Prerequisites
+Make sure you have the following installed:
+Docker + Docker Compose
+Node.js (>= 18)
+npm
+Python 3.11 (for local tooling only; backend runs in Docker)
+
+## Running the Backend (FastAPI + Postgres)
+
+The backend is designed to run only via Docker in development.
+From the repo root:
+```bash
+docker compose up --build
+```
+
+## Running the Frontend (React + Vite)
+
+Open a second terminal.
+From the repo root:
+```bash
+cd apps/web
+npm install
+npm run dev
+```
+
+# Common commands
+### Check database tables
+```bash
+docker compose exec db psql -U lito -d lito
+```
+```bash
+\d users;
+```
+### Run Alembic migrations (inside Docker)
+```bash
+docker compose run --rm api alembic upgrade head
+```
