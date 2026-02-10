@@ -3,6 +3,7 @@ from sqlalchemy import text
 from app.db import engine
 
 from app.routes.users import router as users_router
+from app.routes.auth import router as auth_router
 
 app = FastAPI(title="Lito API", version="0.1.0")
 
@@ -19,3 +20,4 @@ def health_db():
 
 # Feature routers
 app.include_router(users_router, prefix="/api")
+app.include_router(auth_router, prefix="/api")
